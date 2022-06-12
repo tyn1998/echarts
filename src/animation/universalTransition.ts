@@ -230,9 +230,9 @@ function transitionBetween(
             // Get groupId from raw item. { groupId: '' }
             const itemVal = data.getRawDataItem(dataIndex) as OptionDataItemObject<unknown>;
             if (itemVal && itemVal.groupId) {
-                return itemVal.groupId + '';
+                return itemVal.groupId + '';  // 注意这个item的return --tyn
             }
-            return (dataGroupId || data.getId(dataIndex));
+            return (dataGroupId || data.getId(dataIndex)); // 拿不到dataGroupId才会看Id --tyn
         };
     }
 
@@ -316,8 +316,8 @@ function transitionBetween(
         null,
         'multiple'
     ))
-    .update(updateOneToOne)
-    .updateManyToOne(function (newIndex, oldIndices) {
+    .update(updateOneToOne) // update()是一个method，参数是一个回调函数 --tyn
+    .updateManyToOne(function (newIndex, oldIndices) { // 这个方法也和上面一样返回this，只是绑定了回调函数 --tyn
         const newItem = newDiffItems[newIndex];
         const newData = newItem.data;
         const newSeries = newData.hostModel as SeriesModel;
